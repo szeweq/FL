@@ -25,6 +25,12 @@ compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
+task sourcesJar(type: Jar, dependsOn: "sourceJar") {
+    from sourceSets.main.allJava
+    from sourceSets.api.allJava
+    classifier = "sources"
+}
+
 minecraft {
     version = "1.11.2-13.20.0.2252"
     runDir = "run"
@@ -43,6 +49,7 @@ publishing {
     publications {
         FLPub(MavenPublication) {
             from components.java
+            artifact sourcesJar
             groupId project.group
             artifactId project.archivesBaseName
             version project.version
@@ -96,4 +103,8 @@ curseforge {
         changelogType = "markdown"
         changelog = file("LATEST.md")
     }
+}
+
+artifacts {
+    archives sourcesJar
 }
