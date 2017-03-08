@@ -10,6 +10,9 @@ cache:
   - $HOME/.gradle/wrapper/
 before_install:
 - ./gradlew setupCiWorkspace
+after_deploy:
+- ./gradlew curseforge
+- ./gradlew bintrayUpload
 deploy:
   provider: releases
   edge:
