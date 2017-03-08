@@ -10,7 +10,7 @@ public class GuiRect {
 		height = h;
 		x2 = x + width;
 		y2 = y + height;
-		hash = 31 * (31 * ((31 * x) + y) + width) + height;
+		hash = 31 * (31 * (31 * x + y) + width) + height;
 	}
 
 	public boolean contains(int px, int py) {

@@ -15,6 +15,10 @@ public class FL {
 		return is == null || is.isEmpty();
 	}
 
+	public static String formatMB(int n, int c) {
+		return n + " / " + c + " mB";
+	}
+
 	public static void giveItemToPlayer(final ItemStack is, EntityPlayer p) {
 		boolean f = p.inventory.addItemStackToInventory(is);
 		EntityItem ei;
