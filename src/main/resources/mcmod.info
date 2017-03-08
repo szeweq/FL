@@ -1,0 +1,16 @@
+[
+{
+  "modid": "fl",
+  "name": "FL",
+  "description": "Flux Library for Minecraft Mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Szewek"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
