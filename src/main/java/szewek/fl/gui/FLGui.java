@@ -18,15 +18,34 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public enum FLGui {
 	;
+	private static boolean guiMode = false, guiBatch = false;
 
-	public static void drawHGradientRect(int left, int top, int right, int bottom, float z, int color1, int color2) {
-		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
-		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
+	public static void switchGuiMode(boolean b) {
+		guiBatch = b;
+		if (b) start(); else finish();
+	}
+	private static void start() {
+		if (guiMode) return;
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.shadeModel(7425);
+		guiMode = true;
+	}
+	private static void finish() {
+		if (!guiMode) return;
+		GlStateManager.shadeModel(7424);
+		GlStateManager.disableBlend();
+		GlStateManager.enableAlpha();
+		GlStateManager.enableTexture2D();
+		guiMode = false;
+	}
+
+	public static void drawHGradientRect(int left, int top, int right, int bottom, float z, int color1, int color2) {
+		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
+		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
+		if (!guiBatch) start();
 		Tessellator tes = Tessellator.getInstance();
 		VertexBuffer vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
@@ -35,10 +54,46 @@ public enum FLGui {
 		vb.pos(left, bottom, z).color(zr, zg, zb, za).endVertex();
 		vb.pos(right, bottom, z).color(yr, yg, yb, ya).endVertex();
 		tes.draw();
-		GlStateManager.shadeModel(7424);
-		GlStateManager.disableBlend();
-		GlStateManager.enableAlpha();
-		GlStateManager.enableTexture2D();
+		if (!guiBatch) finish();
+	}
+
+	public static void drawGradientRectBatchOnly(int left, int top, int right, int bottom, float z, int color1, int color2) {
+		if (!guiBatch) return;
+		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
+		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
+		Tessellator tes = Tessellator.getInstance();
+		VertexBuffer vb = tes.getBuffer();
+		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		vb.pos(right, top, z).color(yr, yg, yb, ya).endVertex();
+		vb.pos(left, top, z).color(yr, yg, yb, ya).endVertex();
+		vb.pos(left, bottom, z).color(zr, zg, zb, za).endVertex();
+		vb.pos(right, bottom, z).color(zr, zg, zb, za).endVertex();
+		tes.draw();
+	}
+
+	public static void drawRectBatchOnly(int left, int top, int right, int bottom, float z, int c) {
+		if (!guiBatch) return;
+		int p;
+		if (left < right) {
+			p = left;
+			left = right;
+			right = p;
+		}
+		if (top < bottom) {
+			p = top;
+			top = bottom;
+			bottom = p;
+		}
+		float ca = (c >> 24 & 255) / 255F, cr = (c >> 16 & 255) / 255F, cg = (c >> 8 & 255) / 255F, cb = (c >> 8 & 255) / 255F;
+		GlStateManager.color(cr, cg, cb, ca);
+		Tessellator tes = Tessellator.getInstance();
+		VertexBuffer vb = tes.getBuffer();
+		vb.begin(7, DefaultVertexFormats.POSITION);
+		vb.pos(left, bottom, z).endVertex();
+		vb.pos(right, bottom, z).endVertex();
+		vb.pos(right, top, z).endVertex();
+		vb.pos(left, top, z).endVertex();
+		tes.draw();
 	}
 
 	public static void drawFluidStack(Minecraft mc, GuiRect rect, float z, @Nullable FluidStack fs, int cap) {
@@ -90,9 +145,7 @@ public enum FLGui {
 	}
 
 	private static void setGLColor(int color) {
-		float r = (color >> 16 & 255) / 255.0F;
-		float g = (color >> 8 & 255) / 255.0F;
-		float b = (color & 255) / 255.0F;
+		float r = (color >> 16 & 255) / 255F, g = (color >> 8 & 255) / 255F, b = (color & 255) / 255F;
 		GlStateManager.color(r, g, b, 1F);
 	}
 }

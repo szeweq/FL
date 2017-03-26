@@ -25,7 +25,8 @@ public abstract class GuiContainerFL extends GuiContainer {
 	}
 
 	protected void drawGuiBar(GuiRect rect, float fill, int c1, int c2, boolean horiz, boolean reverse) {
-		drawRect(rect.x, rect.y, rect.x2, rect.y2, BAR_BORDER);
+		FLGui.switchGuiMode(true);
+		FLGui.drawRectBatchOnly(rect.x, rect.y, rect.x2, rect.y2, 0, BAR_BORDER);
 		int x = rect.x + 1, y = rect.y + 1, x2 = rect.x2 - 1, y2 = rect.y2 - 1, f;
 		if (fill > 0) {
 			if (horiz) {
@@ -36,7 +37,7 @@ public abstract class GuiContainerFL extends GuiContainer {
 				else
 					x2 -= f;
 			} else {
-				drawGradientRect(x, y, x2, y2, c1, c2);
+				FLGui.drawGradientRectBatchOnly(x, y, x2, y2, zLevel, c1, c2);
 				f = MathHelper.ceil((rect.height - 2) * fill);
 				if (reverse)
 					y += f;
@@ -44,7 +45,9 @@ public abstract class GuiContainerFL extends GuiContainer {
 					y2 -= f;
 			}
 		}
+		FLGui.drawRectBatchOnly(x, y, x2, y2, 0, BAR_BG);
 		drawRect(x, y, x2, y2, BAR_BG);
+		FLGui.switchGuiMode(false);
 	}
 
 	protected void displayFluidInfo(GuiRect rect, @Nullable FluidStack fs, int cap, int mx, int my) {
