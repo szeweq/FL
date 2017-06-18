@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 /**
  * Recipe item (a lightweight alternative for an {@link ItemStack}
  */
-public class RecipeItem {
+public final class RecipeItem {
 	private final Item item;
 	private final int meta, cachedHash;
 	private final NBTTagCompound tags;

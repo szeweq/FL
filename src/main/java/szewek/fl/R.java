@@ -1,6 +1,6 @@
 package szewek.fl;
 
-public class R {
+public final class R {
 	public static final String
 			FL_ID = "fl",
 			FL_VERSION = "${version}",

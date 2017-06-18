@@ -16,8 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 
 @SideOnly(Side.CLIENT)
-public enum FLGui {
-	;
+public final class FLGui {
 	private static boolean guiMode = false, guiBatch = false;
 
 	public static void switchGuiMode(boolean b) {
@@ -148,4 +147,6 @@ public enum FLGui {
 		float r = (color >> 16 & 255) / 255F, g = (color >> 8 & 255) / 255F, b = (color & 255) / 255F;
 		GlStateManager.color(r, g, b, 1F);
 	}
+
+	private FLGui() {}
 }

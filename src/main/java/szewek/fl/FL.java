@@ -13,7 +13,7 @@ import szewek.fl.recipes.BuiltShapedRecipe;
 import java.util.Random;
 
 @Mod(modid = R.FL_ID, version = R.FL_VERSION, dependencies = R.FL_DEPS)
-public class FL {
+public final class FL {
 	/**
 	 * Checks ItemStack emptiness ({@code null} indicates that ItemStack is empty)
 	 * @param is Checked item stack
