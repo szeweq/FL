@@ -4,6 +4,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,7 +32,8 @@ public final class BuiltShapedRecipe implements IRecipe {
 		items = rb.items.clone();
 		oreDicts = rb.oreDicts.clone();
 		mirror = rb.mirror;
-		result = new ItemStack(rb.result, rb.size, rb.meta, rb.tags.copy());
+		NBTTagCompound nbt = rb.tags != null ? rb.tags.copy() : null;
+		result = new ItemStack(rb.result, rb.size, rb.meta, nbt);
 	}
 
 	public Object[] getCached() {
