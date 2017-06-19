@@ -12,7 +12,6 @@ public class FLJEI extends BlankModPlugin {
 	@Override
 	public void register(IModRegistry reg) {
 		helpers = reg.getJeiHelpers();
-		reg.addRecipeHandlers();
 		reg.handleRecipes(BuiltShapedRecipe.class, BuiltShapedWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
 	}
 
