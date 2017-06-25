@@ -5,17 +5,24 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.RecipeSorter;
-import szewek.fl.network.FLNetChannel;
+import szewek.fl.energy.Battery;
+import szewek.fl.energy.EnergyNBTStorage;
+import szewek.fl.energy.IEnergy;
 import szewek.fl.recipes.BuiltShapedRecipe;
 
-import java.util.Collections;
 import java.util.Random;
 
 @Mod(modid = R.FL_ID, version = R.FL_VERSION, dependencies = R.FL_DEPS)
 public final class FL {
+	@CapabilityInject(IEnergy.class) public static Capability<IEnergy> ENERGY_CAP = null;
+
 	/**
 	 * Checks ItemStack emptiness ({@code null} indicates that ItemStack is empty)
 	 * @param is Checked item stack
@@ -44,6 +51,11 @@ public final class FL {
 				ei.setOwner(p.getName());
 			}
 		}
+	}
+
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent e) {
+		CapabilityManager.INSTANCE.register(IEnergy.class, new EnergyNBTStorage(), Battery::new);
 	}
 
 	@Mod.EventHandler
