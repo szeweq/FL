@@ -18,9 +18,12 @@ import net.minecraftforge.fml.relauncher.Side;
 enum FLNetUtil {
 	CLI {
 		@Override
-		Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p) {
-			final Minecraft mc = Minecraft.getMinecraft();
-			return new Tuple<>(mc, mc.player);
+		Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p, final Side s) {
+			if (s == Side.CLIENT) {
+				final Minecraft mc = Minecraft.getMinecraft();
+				return new Tuple<>(mc, mc.player);
+			}
+			return SRV.preprocess(p, s);
 		}
 
 		@Override
@@ -39,7 +42,7 @@ enum FLNetUtil {
 		}
 	}, SRV {
 		@Override
-		Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p) {
+		Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p, final Side s) {
 			final NetHandlerPlayServer h = (NetHandlerPlayServer) p.handler();
 			if (h != null) {
 				final EntityPlayer ep = h.player;
@@ -61,7 +64,7 @@ enum FLNetUtil {
 		}
 	};
 
-	abstract Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p);
+	abstract Tuple<IThreadListener, EntityPlayer> preprocess(final FMLProxyPacket p, final Side s);
 	abstract void decode(final FLNetMsg msg, EntityPlayer p, final Side s);
 	abstract Side check(final INetHandler h);
 

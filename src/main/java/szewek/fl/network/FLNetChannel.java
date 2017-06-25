@@ -37,13 +37,14 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, FMLProxyPacket msg) throws Exception {
-		Tuple<IThreadListener, EntityPlayer> tup = FLNetUtil.FN.preprocess(msg);
+		final Side s = FLNetUtil.FN.check(msg.handler());
+		Tuple<IThreadListener, EntityPlayer> tup = FLNetUtil.FN.preprocess(msg, s);
 		if (tup == null) {
+			FMLLog.warning("No Tuple");
 			return;
 		}
 		final IThreadListener itl = tup.getFirst();
 		final EntityPlayer ep = tup.getSecond();
-		final Side s = FLNetUtil.FN.check(msg.handler());
 		PacketBuffer pb = (PacketBuffer) msg.payload();
 		if (pb == null)
 			pb = new PacketBuffer(msg.payload());
@@ -58,8 +59,8 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 				}
 				itl.addScheduledTask(new FLNetMsg.Decode(fm, ep, s));
 			}
-		} catch (Exception ignored) {
-
+		} catch (Exception x) {
+			FMLLog.log(Level.ERROR, x, "[FLNetChannel] Exception thrown while decoding!");
 		}
 	}
 
