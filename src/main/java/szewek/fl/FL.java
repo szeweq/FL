@@ -5,17 +5,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.oredict.RecipeSorter;
+import org.apache.logging.log4j.Logger;
 import szewek.fl.energy.Battery;
 import szewek.fl.energy.EnergyNBTStorage;
 import szewek.fl.energy.IEnergy;
-import szewek.fl.recipes.BuiltShapedRecipe;
+import szewek.fl.network.FLCloud;
+import szewek.fl.test.EventCounter;
 
 import java.util.Random;
 
@@ -53,14 +55,24 @@ public final class FL {
 		}
 	}
 
+	//
+	private static FLCloud FLC = FLCloud.getAPI("fl", R.FL_KEY);
+	public static Logger L = null;
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
+		L = e.getModLog();
+		new Thread(FLCloud::checkVersions, "FL Updates check").start();
 		CapabilityManager.INSTANCE.register(IEnergy.class, new EnergyNBTStorage(), Battery::new);
+		if (R.FL_DEBUG) {
+			EventCounter ec = new EventCounter();
+			MinecraftForge.EVENT_BUS.register(ec);
+			Thread th = new Thread(ec, "FL Event Counter");
+			th.setDaemon(true);
+			th.start();
+		}
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent e) {
-		RecipeSorter.register("fl:builtRecipe", BuiltShapedRecipe.class, RecipeSorter.Category.SHAPED, "after:minecraft:shaped");
-		//new RecipeBuilder().shape(new R9[] {A, A, A, A}, 2, 2).with(A, new RecipeItem(Blocks.DIRT)).result(Items.DIAMOND).deploy();
-	}
+	public void init(FMLInitializationEvent e) {}
 }

@@ -4,7 +4,10 @@ public final class R {
 	public static final String
 			FL_ID = "fl",
 			FL_VERSION = "${version}",
-			FL_DEPS = "after:jei@[4.3.0,)";
+			FL_DEPS = "",
+			FL_KEY = "pLQRD8nqLtXWnKf1pe2AxPCDgLqU6_hK3TjDJ1UEIUU";
+
+	static final boolean FL_DEBUG = false;
 
 	private R() {}
 }

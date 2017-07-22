@@ -10,13 +10,12 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.Tuple;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.network.FMLEmbeddedChannel;
 import net.minecraftforge.fml.common.network.FMLOutboundHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
-import org.apache.logging.log4j.Level;
+import szewek.fl.FL;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -40,7 +39,7 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 		final Side s = FLNetUtil.FN.check(msg.handler());
 		Tuple<IThreadListener, EntityPlayer> tup = FLNetUtil.FN.preprocess(msg, s);
 		if (tup == null) {
-			FMLLog.warning("No Tuple");
+			FL.L.warn("No Tuple");
 			return;
 		}
 		final IThreadListener itl = tup.getFirst();
@@ -60,7 +59,7 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 				itl.addScheduledTask(new FLNetMsg.Decode(fm, ep, s));
 			}
 		} catch (Exception x) {
-			FMLLog.log(Level.ERROR, x, "[FLNetChannel] Exception thrown while decoding!");
+			FL.L.error("[FLNetChannel] Exception thrown while decoding!", x);
 		}
 	}
 
@@ -71,7 +70,7 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		FMLLog.log(Level.ERROR, cause, "FLNetChannel exception");
+		FL.L.error("FLNetChannel exception", cause);
 		super.exceptionCaught(ctx, cause);
 	}
 

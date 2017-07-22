@@ -1,9 +1,9 @@
 package szewek.fl.gui;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -46,7 +46,7 @@ public final class FLGui {
 		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
 		if (!guiBatch) start();
 		Tessellator tes = Tessellator.getInstance();
-		VertexBuffer vb = tes.getBuffer();
+		BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		vb.pos(right, top, z).color(yr, yg, yb, ya).endVertex();
 		vb.pos(left, top, z).color(zr, zg, zb, za).endVertex();
@@ -61,7 +61,7 @@ public final class FLGui {
 		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
 		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
 		Tessellator tes = Tessellator.getInstance();
-		VertexBuffer vb = tes.getBuffer();
+		BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		vb.pos(right, top, z).color(yr, yg, yb, ya).endVertex();
 		vb.pos(left, top, z).color(yr, yg, yb, ya).endVertex();
@@ -86,7 +86,7 @@ public final class FLGui {
 		float ca = (c >> 24 & 255) / 255F, cr = (c >> 16 & 255) / 255F, cg = (c >> 8 & 255) / 255F, cb = (c >> 8 & 255) / 255F;
 		GlStateManager.color(cr, cg, cb, ca);
 		Tessellator tes = Tessellator.getInstance();
-		VertexBuffer vb = tes.getBuffer();
+		BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION);
 		vb.pos(left, bottom, z).endVertex();
 		vb.pos(right, bottom, z).endVertex();
@@ -115,7 +115,7 @@ public final class FLGui {
 		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		setGLColor(flc);
 		Tessellator tes = Tessellator.getInstance();
-		VertexBuffer vb = tes.getBuffer();
+		BufferBuilder vb = tes.getBuffer();
 		final int xc = rect.width / 16, xr = rect.width % 16, yc = sa / 16, yr = sa % 16, ys = rect.y2;
 		for (int xt = 0; xt <= xc; xt++) {
 			for (int yt = 0; yt <= yc; yt++) {
