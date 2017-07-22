@@ -44,8 +44,8 @@ public final class RecipeItem {
 		return is;
 	}
 
-	public boolean matchesStack(ItemStack is, boolean strict) {
-		return !is.isEmpty() && is.getItem() == item && ((meta == 32767 && !strict) || is.getItemDamage() == meta);
+	public boolean matchesStack(ItemStack is) {
+		return !is.isEmpty() && is.getItem() == item && (meta == 32767 || is.getItemDamage() == meta);
 	}
 
 	@Override public int hashCode() {

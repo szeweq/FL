@@ -21,7 +21,7 @@ import szewek.fl.test.EventCounter;
 
 import java.util.Random;
 
-@Mod(modid = R.FL_ID, version = R.FL_VERSION, dependencies = R.FL_DEPS)
+@Mod(modid = R.FL_ID, version = R.FL_VERSION)
 public final class FL {
 	@CapabilityInject(IEnergy.class) public static Capability<IEnergy> ENERGY_CAP = null;
 

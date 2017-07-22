@@ -107,6 +107,7 @@ curseforge {
         releaseType = "release"
         changelogType = "markdown"
         changelog = file("LATEST.md")
+        addArtifact sourcesJar
     }
 }
 
