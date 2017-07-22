@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package szewek.fl.recipes;
+package szewek.fl.util;
 
 import mcp.MethodsReturnNonnullByDefault;
 

@@ -1,4 +1,4 @@
-package szewek.fl.recipes;
+package szewek.fl.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import javax.annotation.Nullable;
 
 /**
- * Recipe item (a lightweight alternative for an {@link ItemStack}
+ * RecipeItem is a lightweight alternative for an {@link ItemStack} for use in recipes
  */
 public final class RecipeItem {
 	private final Item item;

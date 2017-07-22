@@ -41,7 +41,7 @@ task sourcesJar(type: Jar, dependsOn: "sourceJar") {
 minecraft {
     version = "1.12-14.21.1.2415"
     runDir = "run"
-    mappings = "snapshot_20170624"
+    mappings = "snapshot_20170710"
     replace '\${version}', project.version
     replaceIn "R.java"
 }
