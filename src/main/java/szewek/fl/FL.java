@@ -55,7 +55,7 @@ public final class FL {
 		}
 	}
 
-	//
+	// All stuff below is not a part of FL API
 	private static FLCloud FLC = FLCloud.getAPI("fl", R.FL_KEY);
 	public static Logger L = null;
 

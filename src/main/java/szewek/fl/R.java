@@ -7,7 +7,7 @@ public final class R {
 			FL_DEPS = "",
 			FL_KEY = "pLQRD8nqLtXWnKf1pe2AxPCDgLqU6_hK3TjDJ1UEIUU";
 
-	static final boolean FL_DEBUG = false;
+	static final boolean FL_DEBUG = Boolean.getBoolean("szewek.fl.debug");
 
 	private R() {}
 }
