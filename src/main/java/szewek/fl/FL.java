@@ -12,12 +12,14 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.Logger;
 import szewek.fl.energy.Battery;
 import szewek.fl.energy.EnergyNBTStorage;
 import szewek.fl.energy.IEnergy;
 import szewek.fl.network.FLCloud;
 import szewek.fl.test.EventCounter;
+import szewek.fl.test.NamedCounters;
 
 import java.util.Random;
 
@@ -75,4 +77,9 @@ public final class FL {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent e) {}
+
+	@Mod.EventHandler
+	public void serverStopped(FMLServerStoppingEvent e) {
+		NamedCounters.checkAndResetAll();
+	}
 }

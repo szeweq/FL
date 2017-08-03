@@ -7,13 +7,10 @@ buildscript {
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.9"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7"
     }
 }
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "com.matthewprenger.cursegradle"
-apply plugin: "com.jfrog.bintray"
-apply plugin: "maven-publish"
 
 String ttag = System.getenv("TRAVIS_TAG")
 version = ttag ? ttag : "0.0.0-x"
@@ -44,33 +41,6 @@ minecraft {
     mappings = "snapshot_20170710"
     replace '\${version}', project.version
     replaceIn "R.java"
-}
-
-publishing {
-    publications {
-        FLPub(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-        }
-    }
-}
-
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    publications = ["FLPub"]
-    publish = true
-    override = false
-    pkg {
-        repo = "MC"
-        name = project.group
-        version {
-            name = project.version
-        }
-    }
 }
 
 processResources {

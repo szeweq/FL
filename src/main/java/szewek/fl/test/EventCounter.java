@@ -7,18 +7,18 @@ import szewek.fl.FL;
 
 public final class EventCounter implements Runnable {
 	private static final Object o = new Object();
-	private static long icount = 0;
+	private static NamedCounters.Counter icount = NamedCounters.getCounter("Attaching ItemStack Capabilities");
 
 	@SubscribeEvent
 	public void count1(AttachCapabilitiesEvent<ItemStack> e) {
 		synchronized (o) {
-			icount++;
+			icount.add();
 		}
 	}
 
 	private static long getIcount() {
 		synchronized (o) {
-			return icount;
+			return icount.getCount();
 		}
 	}
 
