@@ -29,7 +29,7 @@ public final class NamedCounters {
 		}
 	}
 
-	static final class Counter {
+	public static final class Counter {
 		private long count = 0;
 
 		Counter(String x) {}
