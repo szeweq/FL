@@ -18,14 +18,18 @@ import szewek.fl.energy.Battery;
 import szewek.fl.energy.EnergyNBTStorage;
 import szewek.fl.energy.IEnergy;
 import szewek.fl.network.FLCloud;
+import szewek.fl.taste.ILikesTaste;
+import szewek.fl.taste.Taste;
 import szewek.fl.test.EventCounter;
 import szewek.fl.test.NamedCounters;
+import szewek.fl.util.CapStorage;
 
 import java.util.Random;
 
 @Mod(modid = R.FL_ID, version = R.FL_VERSION)
 public final class FL {
 	@CapabilityInject(IEnergy.class) public static Capability<IEnergy> ENERGY_CAP = null;
+	@CapabilityInject(ILikesTaste.class) public static Capability<ILikesTaste> TASTE_CAP = null;
 
 	/**
 	 * Checks ItemStack emptiness ({@code null} indicates that ItemStack is empty)
@@ -65,7 +69,9 @@ public final class FL {
 	public void preInit(FMLPreInitializationEvent e) {
 		L = e.getModLog();
 		new Thread(FLCloud::checkVersions, "FL Updates check").start();
-		CapabilityManager.INSTANCE.register(IEnergy.class, new EnergyNBTStorage(), Battery::new);
+		final CapabilityManager cm = CapabilityManager.INSTANCE;
+		cm.register(IEnergy.class, new EnergyNBTStorage(), Battery::new);
+		cm.register(ILikesTaste.class, CapStorage.getCustom(), Taste.Storage::new);
 		if (R.FL_DEBUG) {
 			EventCounter ec = new EventCounter();
 			MinecraftForge.EVENT_BUS.register(ec);
