@@ -75,4 +75,20 @@ public interface IEnergy {
 	default boolean hasFullEnergy() {
 		return getEnergy() == getEnergyCapacity();
 	}
+
+	/**
+	 * Simple energy transfer method.
+	 *
+	 * @param ie Another IEnergy object which energy is being input
+	 * @param amount Maximum energy amount to transfer
+	 * @return Energy transferred
+	 */
+	default long to(IEnergy ie, final long amount) {
+		if (ie != null && ie.canInputEnergy() && canOutputEnergy()) {
+			final long r = ie.inputEnergy(outputEnergy(amount, true), true);
+			if (r > 0)
+				return ie.inputEnergy(outputEnergy(r, false), false);
+		}
+		return 0;
+	}
 }

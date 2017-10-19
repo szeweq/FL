@@ -40,7 +40,7 @@ public interface ILikesTaste {
 	 *
 	 * @param amount Taste amount
 	 * @param sim    Simulation switch. Set to {@code false} only when you need to check actual energy input value.
-	 * @return
+	 * @return A taste.
 	 */
 	Taste outputAnyTaste(long amount, boolean sim);
 
@@ -71,4 +71,13 @@ public interface ILikesTaste {
 	 * @return Array of Taste objects (amount is ignored).
 	 */
 	Taste[] allTastesAcceptable();
+
+	default long to(ILikesTaste ilt, Taste t, final long amount) {
+		if (ilt != null && ilt.canInputTaste(t) && canOutputTaste(t)) {
+			final long r = ilt.inputTaste(t.makeImmutable(outputTaste(t.makeImmutable(amount), true)), true);
+			if (r > 0)
+				return ilt.inputTaste(t.makeImmutable(outputTaste(t.makeImmutable(amount), false)), false);
+		}
+		return 0;
+	}
 }
