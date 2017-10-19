@@ -1,2 +1,3 @@
-# 2.1.0
-- Added new testing methods and counters
+# 2.2.0
+- New Taste API (like energy, but more customizable)
+- FLCloud fix

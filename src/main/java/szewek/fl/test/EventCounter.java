@@ -1,6 +1,7 @@
 package szewek.fl.test;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Util;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import szewek.fl.FL;

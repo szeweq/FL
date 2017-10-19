@@ -29,7 +29,7 @@ public class FLCloud {
 	private HttpURLConnection connect(String path) {
 		HttpURLConnection huc = null;
 		try {
-			huc = (HttpURLConnection) new URL("https", "flcloud.herokuapp.com", 443, path, null).openConnection();
+			huc = (HttpURLConnection) new URL("https", "cloudflux.herokuapp.com", 443, path, null).openConnection();
 			huc.addRequestProperty("Authorization", "Bearer " + key);
 		} catch (Exception x) {
 			x.printStackTrace();
