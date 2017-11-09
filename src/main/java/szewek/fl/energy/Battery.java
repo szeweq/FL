@@ -30,24 +30,23 @@ public class Battery implements IEnergy, INBTSerializable<NBTBase> {
 	public long inputEnergy(long amount, boolean sim) {
 		if (amount == 0)
 			return 0;
-		long r = maxEnergy - energy;
-		if (amount < r)
-			r = amount;
+		final long r = maxEnergy - energy;
+		if (amount > r)
+			amount = r;
 		if (!sim)
-			energy += r;
-		return r;
+			energy += amount;
+		return amount;
 	}
 
 	@Override
 	public long outputEnergy(long amount, boolean sim) {
 		if (amount == 0)
 			return 0;
-		long r = energy;
-		if (amount < r)
-			r = amount;
+		if (amount > energy)
+			amount = energy;
 		if (!sim)
-			energy -= r;
-		return r;
+			energy -= amount;
+		return amount;
 	}
 
 	@Override
@@ -71,6 +70,20 @@ public class Battery implements IEnergy, INBTSerializable<NBTBase> {
 
 	@Override public boolean hasFullEnergy() {
 		return energy == maxEnergy;
+	}
+
+	@Override
+	public long to(IEnergy ie, long amount) {
+		if (amount > 0 && ie != null && ie.canInputEnergy()) {
+			if (amount > energy)
+				amount = energy;
+			final long r = ie.inputEnergy(amount, true);
+			if (r > 0) {
+				energy -= r;
+				return ie.inputEnergy(r, false);
+			}
+		}
+		return 0;
 	}
 
 	@Override public NBTBase serializeNBT() {

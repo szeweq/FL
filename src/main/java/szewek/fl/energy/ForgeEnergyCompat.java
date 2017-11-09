@@ -23,13 +23,13 @@ public final class ForgeEnergyCompat implements IEnergyStorage {
 
 	@Override
 	public int getEnergyStored() {
-		long l = ie.getEnergy();
+		final long l = ie.getEnergy();
 		return l > MAX_VALUE ? MAX_VALUE : (int) l;
 	}
 
 	@Override
 	public int getMaxEnergyStored() {
-		long l = ie.getEnergyCapacity();
+		final long l = ie.getEnergyCapacity();
 		return l > MAX_VALUE ? MAX_VALUE : (int) l;
 	}
 

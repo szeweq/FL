@@ -13,7 +13,7 @@ public final class NamedCounters {
 	}
 
 	public static void addConsumer(Counter c, BiConsumer<String, Counter> bic) {
-		BiConsumer<String, Counter> obic = consumers.get(c);
+		final BiConsumer<String, Counter> obic = consumers.get(c);
 		if (obic == null)
 			consumers.put(c, bic);
 		else

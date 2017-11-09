@@ -84,7 +84,7 @@ public interface IEnergy {
 	 * @return Energy transferred
 	 */
 	default long to(IEnergy ie, final long amount) {
-		if (ie != null && ie.canInputEnergy() && canOutputEnergy()) {
+		if (amount > 0 && ie != null && ie.canInputEnergy() && canOutputEnergy()) {
 			final long r = ie.inputEnergy(outputEnergy(amount, true), true);
 			if (r > 0)
 				return ie.inputEnergy(outputEnergy(r, false), false);

@@ -38,7 +38,7 @@ public final class RecipeItem {
 	}
 
 	public ItemStack makeItemStack() {
-		ItemStack is = new ItemStack(item, 1, meta, null);
+		final ItemStack is = new ItemStack(item, 1, meta, null);
 		if (tags != null)
 			is.setTagCompound(tags.copy());
 		return is;
