@@ -36,7 +36,7 @@ public final class JavaUtils {
 	}
 
 	public static <A extends Annotation> void eachAnnotatedClasses(ASMDataTable asdt, Class<A> ac, BiConsumer<A, Class<?>> eachfn) {
-		final Set<ASMDataTable.ASMData> aset = asdt.getAll(ac.getCanonicalName());
+		final Set<ASMDataTable.ASMData> aset = asdt.getAll(ac.getName());
 		for (ASMDataTable.ASMData data : aset) {
 			final String cn = data.getClassName();
 			if (!cn.equals(data.getObjectName())) continue;

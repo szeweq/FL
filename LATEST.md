@@ -1,3 +1,6 @@
-# 2.2.0
-- New Taste API (like energy, but more customizable)
-- FLCloud fix
+# 2.3.1
+- Fixed annotation names
+
+# 2.3.0
+- Added Item, Block and TileEntity registering
+- Added finding annotations
