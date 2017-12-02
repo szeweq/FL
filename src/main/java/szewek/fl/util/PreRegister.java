@@ -1,18 +1,15 @@
 package szewek.fl.util;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+import szewek.fl.FL;
 import szewek.fl.annotations.NamedResource;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +22,7 @@ public final class PreRegister {
 	public PreRegister(String dn, CreativeTabs t) {
 		domain = dn;
 		tab = t;
+		FL.PROXY.addPreRegister(this);
 	}
 
 	public PreRegister item(String name, Item i) {
@@ -57,13 +55,11 @@ public final class PreRegister {
 			ifr.register(b);
 		}
 	}
+	public Set<Item> getItems() {
+		return Collections.unmodifiableSet(items);
+	}
 
-	@SideOnly(Side.CLIENT)
-	public void models() {
-		ItemModelMesher imm = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
-		for (Item i : items) {
-			ModelResourceLocation mrl = new ModelResourceLocation(i.getRegistryName(), "inventory");
-			imm.register(i, 0, mrl);
-		}
+	public Set<Block> getBlocks() {
+		return Collections.unmodifiableSet(blocks);
 	}
 }

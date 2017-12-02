@@ -1,6 +1,5 @@
-# 2.3.1
-- Fixed annotation names
-
-# 2.3.0
-- Added Item, Block and TileEntity registering
-- Added finding annotations
+# 2.10.0 (Can't do 3.0.0 – it is reserved for MC 1.13)
+- New logo
+- New Rollbar API
+- FluxWork API moved from Minecraft-Flux
+- Easier item and block registration

@@ -10,6 +10,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
@@ -65,6 +66,9 @@ public final class FL {
 	private static FLCloud FLC = FLCloud.getAPI("fl", R.FL_KEY);
 	public static Logger L = null;
 
+	@SidedProxy(modId = R.FL_ID, serverSide = R.FL_PROXY_PKG, clientSide = R.FL_PROXY_PKG + "Client")
+	public static szewek.fl.proxy.FLProxy PROXY = null;
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		L = e.getModLog();
@@ -82,7 +86,9 @@ public final class FL {
 	}
 
 	@Mod.EventHandler
-	public void init(FMLInitializationEvent e) {}
+	public void init(FMLInitializationEvent e) {
+		PROXY.init();
+	}
 
 	@Mod.EventHandler
 	public void serverStopped(FMLServerStoppingEvent e) {

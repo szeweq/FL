@@ -45,8 +45,8 @@ public final class FLGui {
 		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
 		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
 		if (!guiBatch) start();
-		Tessellator tes = Tessellator.getInstance();
-		BufferBuilder vb = tes.getBuffer();
+		final Tessellator tes = Tessellator.getInstance();
+		final BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		vb.pos(right, top, z).color(yr, yg, yb, ya).endVertex();
 		vb.pos(left, top, z).color(zr, zg, zb, za).endVertex();
@@ -60,8 +60,8 @@ public final class FLGui {
 		if (!guiBatch) return;
 		int ya = color1 >> 24 & 255, yr = color1 >> 16 & 255, yg = color1 >> 8 & 255, yb = color1 & 255;
 		int za = color2 >> 24 & 255, zr = color2 >> 16 & 255, zg = color2 >> 8 & 255, zb = color2 & 255;
-		Tessellator tes = Tessellator.getInstance();
-		BufferBuilder vb = tes.getBuffer();
+		final Tessellator tes = Tessellator.getInstance();
+		final BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		vb.pos(right, top, z).color(yr, yg, yb, ya).endVertex();
 		vb.pos(left, top, z).color(yr, yg, yb, ya).endVertex();
@@ -83,10 +83,9 @@ public final class FLGui {
 			top = bottom;
 			bottom = p;
 		}
-		float ca = (c >> 24 & 255) / 255F, cr = (c >> 16 & 255) / 255F, cg = (c >> 8 & 255) / 255F, cb = (c >> 8 & 255) / 255F;
-		GlStateManager.color(cr, cg, cb, ca);
-		Tessellator tes = Tessellator.getInstance();
-		BufferBuilder vb = tes.getBuffer();
+		setGLColor(c);
+		final Tessellator tes = Tessellator.getInstance();
+		final BufferBuilder vb = tes.getBuffer();
 		vb.begin(7, DefaultVertexFormats.POSITION);
 		vb.pos(left, bottom, z).endVertex();
 		vb.pos(right, bottom, z).endVertex();
@@ -114,8 +113,8 @@ public final class FLGui {
 			sa = rect.height;
 		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		setGLColor(flc);
-		Tessellator tes = Tessellator.getInstance();
-		BufferBuilder vb = tes.getBuffer();
+		final Tessellator tes = Tessellator.getInstance();
+		final BufferBuilder vb = tes.getBuffer();
 		final int xc = rect.width / 16, xr = rect.width % 16, yc = sa / 16, yr = sa % 16, ys = rect.y2;
 		for (int xt = 0; xt <= xc; xt++) {
 			for (int yt = 0; yt <= yc; yt++) {
@@ -143,9 +142,9 @@ public final class FLGui {
 		}
 	}
 
-	private static void setGLColor(int color) {
-		float r = (color >> 16 & 255) / 255F, g = (color >> 8 & 255) / 255F, b = (color & 255) / 255F;
-		GlStateManager.color(r, g, b, 1F);
+	private static void setGLColor(int c) {
+		final float a = (c >> 24 & 255) / 255F, r = (c >> 16 & 255) / 255F, g = (c >> 8 & 255) / 255F, b = (c & 255) / 255F;
+		GlStateManager.color(r, g, b, a);
 	}
 
 	private FLGui() {}
