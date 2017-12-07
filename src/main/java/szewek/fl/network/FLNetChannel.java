@@ -36,18 +36,18 @@ public final class FLNetChannel extends SimpleChannelInboundHandler<FMLProxyPack
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, FMLProxyPacket msg) throws Exception {
-		final Side s = FLNetUtil.FN.check(msg.handler());
-		Tuple<IThreadListener, EntityPlayer> tup = FLNetUtil.FN.preprocess(msg, s);
-		if (tup == null) {
-			FL.L.warn("No Tuple");
-			return;
-		}
-		final IThreadListener itl = tup.getFirst();
-		final EntityPlayer ep = tup.getSecond();
-		PacketBuffer pb = (PacketBuffer) msg.payload();
-		if (pb == null)
-			pb = new PacketBuffer(msg.payload());
 		try {
+			final Side s = FL.PROXY.getNetUtil().check(msg.handler());
+			Tuple<IThreadListener, EntityPlayer> tup = FL.PROXY.getNetUtil().preprocess(msg, s);
+			if (tup == null) {
+				FL.L.warn("No Tuple");
+				return;
+			}
+			final IThreadListener itl = tup.getFirst();
+			final EntityPlayer ep = tup.getSecond();
+			PacketBuffer pb = (PacketBuffer) msg.payload();
+			if (pb == null)
+				pb = new PacketBuffer(msg.payload());
 			final byte id = pb.readByte();
 			final FLNetMsg fm = ids.get(id).newInstance();
 			if (!itl.isCallingFromMinecraftThread()) {

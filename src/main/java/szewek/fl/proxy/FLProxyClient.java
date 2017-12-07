@@ -4,8 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import szewek.fl.network.FLNetUtil;
+import szewek.fl.network.FLNetUtilClient;
 import szewek.fl.util.PreRegister;
 
 import java.util.ArrayList;
@@ -30,5 +33,12 @@ public class FLProxyClient extends FLProxy {
 			}
 		}
 		prl.clear();
+	}
+
+	@Override
+	public FLNetUtil getNetUtil() {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT)
+			return FLNetUtilClient.THIS;
+		return super.getNetUtil();
 	}
 }

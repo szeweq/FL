@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import szewek.fl.FL;
 
 import java.io.IOException;
 
@@ -63,7 +64,7 @@ public abstract class FLNetMsg {
 		@Override
 		public void run() {
 			try {
-				FLNetUtil.FN.decode(msg, player, side);
+				FL.PROXY.getNetUtil().decode(msg, player, side);
 			} catch (Exception x) {
 				msg.exception(x);
 			}
