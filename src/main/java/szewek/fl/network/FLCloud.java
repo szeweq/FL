@@ -106,7 +106,6 @@ public class FLCloud {
 		}
 
 		public JsonElement responseJSON() throws IOException {
-			conn.setRequestProperty("Accept", "application/json");
 			boolean jsonCheck = false;
 			try {
 				JsonReader jr = new JsonReader(new InputStreamReader(getResponse()));
@@ -124,7 +123,6 @@ public class FLCloud {
 		}
 
 		public String responseText() throws IOException {
-			conn.setRequestProperty("Accept", "text/plain; charset=UTF-8");
 			InputStream in = getResponse();
 			ByteArrayOutputStream bout = new ByteArrayOutputStream(Math.max(32, in.available()));
 			ByteStreams.copy(in, bout);
