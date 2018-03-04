@@ -111,12 +111,12 @@ public abstract class TileEntityFluxWork extends TileEntity implements ITickable
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing f) {
-		return cap == FL.ENERGY_CAP || super.hasCapability(cap, f);
+		return cap == FL.Companion.getENERGY_CAP() || super.hasCapability(cap, f);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing f) {
-		return cap == FL.ENERGY_CAP ? (T) this : super.getCapability(cap, f);
+		return cap == FL.Companion.getENERGY_CAP() ? (T) this : super.getCapability(cap, f);
 	}
 }
