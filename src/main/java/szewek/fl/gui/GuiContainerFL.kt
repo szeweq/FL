@@ -55,7 +55,7 @@ abstract class GuiContainerFL(inventorySlotsIn: Container) : GuiContainer(invent
     }
 
     companion object {
-        private val BAR_BORDER = -0xcdcdce
-        private val BAR_BG = -0xeaeaeb
+        private const val BAR_BORDER = -0xcdcdce
+        private const val BAR_BG = -0xeaeaeb
     }
 }

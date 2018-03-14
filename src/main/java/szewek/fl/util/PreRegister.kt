@@ -15,18 +15,18 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
     private val blocks = HashSet<Block>()
 
     init {
-        FL.PROXY!!.addPreRegister(this)
+        FL.PROXY.addPreRegister(this)
     }
 
     fun item(name: String, i: Item): PreRegister {
-        val fn = domain + ':' + name
+        val fn = "$domain:$name"
         i.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
         items.add(i)
         return this
     }
 
     fun block(name: String, b: Block): PreRegister {
-        val fn = domain + ':' + name
+        val fn = "$domain:$name"
         b.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
         blocks.add(b)
         return this

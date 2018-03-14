@@ -91,9 +91,9 @@ class FLCloud private constructor(private val name: String, private val key: Str
 
         @Throws(IOException::class)
         fun responseText(): String {
-            val `in` = response
-            val bout = ByteArrayOutputStream(Math.max(32, `in`.available()))
-            ByteStreams.copy(`in`, bout)
+            val resp = response
+            val bout = ByteArrayOutputStream(Math.max(32, resp.available()))
+            ByteStreams.copy(resp, bout)
             return bout.toString("UTF-8")
         }
     }
@@ -113,10 +113,7 @@ class FLCloud private constructor(private val name: String, private val key: Str
         fun checkVersions() {
             var ac: APICall?
             for (api in apis.values) {
-                ac = api.connect("/api/version/" + Loader.MC_VERSION)
-                if (ac == null) {
-                    continue
-                }
+                ac = api.connect("/api/version/" + Loader.MC_VERSION) ?: continue
                 try {
                     val es = ac.responseText()
                     if (ac.statusCode() == 200) {

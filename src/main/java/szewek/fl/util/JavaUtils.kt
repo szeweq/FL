@@ -6,32 +6,22 @@ import java.util.function.BiConsumer
 
 object JavaUtils {
 
-    fun getClassSafely(name: String): Class<*>? {
-        var c: Class<*>? = null
-        try {
-            c = Class.forName(name)
-        } catch (ignored: ClassNotFoundException) {
-        }
-
-        return c
+    fun getClassSafely(name: String): Class<*>? = try {
+        Class.forName(name)
+    } catch (ignored: ClassNotFoundException) {
+        null
     }
 
-    fun getMethodSafely(c: Class<*>, name: String, vararg cargs: Class<*>): Method? {
-        var m: Method? = null
-        try {
-            m = c.getDeclaredMethod(name, *cargs)
-        } catch (ignored: NoSuchMethodException) {
-        }
-
-        return m
+    fun getMethodSafely(c: Class<*>, name: String, vararg cargs: Class<*>): Method? = try {
+        c.getDeclaredMethod(name, *cargs)
+    } catch (ignored: NoSuchMethodException) {
+        null
     }
 
     fun <T> makeFilledArray(t: Array<T>, fill: T): Array<T> {
-        var i = 0
-        val l = t.size
-        while (i < l) {
+        val l = t.size - 1
+        for (i in 0..l) {
             t[i] = fill
-            i++
         }
         return t
     }

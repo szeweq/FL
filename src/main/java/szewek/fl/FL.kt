@@ -19,6 +19,7 @@ import szewek.fl.energy.Battery
 import szewek.fl.energy.EnergyNBTStorage
 import szewek.fl.energy.IEnergy
 import szewek.fl.network.FLCloud
+import szewek.fl.proxy.FLProxyDummy
 import szewek.fl.taste.ILikesTaste
 import szewek.fl.taste.Taste
 import szewek.fl.test.EventCounter
@@ -31,7 +32,7 @@ class FL {
     @Mod.EventHandler
     fun preInit(e: FMLPreInitializationEvent) {
         L = e.modLog
-        Thread(Runnable { FLCloud.checkVersions() }, "FL Updates check").start()
+        Thread(FLCloud.Companion::checkVersions, "FL Updates check").start()
         val cm = CapabilityManager.INSTANCE
         cm.register<IEnergy>(IEnergy::class.java, EnergyNBTStorage(), { Battery() })
         cm.register<ILikesTaste>(ILikesTaste::class.java, CapStorage.getCustom<ILikesTaste>(), { Taste.Storage() })
@@ -46,7 +47,7 @@ class FL {
 
     @Mod.EventHandler
     fun init(e: FMLInitializationEvent) {
-        PROXY!!.init()
+        PROXY.init()
     }
 
     @Mod.EventHandler
@@ -55,34 +56,35 @@ class FL {
     }
 
     companion object {
+        @JvmField
         @CapabilityInject(IEnergy::class)
         var ENERGY_CAP: Capability<IEnergy>? = null
+        @JvmField
         @CapabilityInject(ILikesTaste::class)
         var TASTE_CAP: Capability<ILikesTaste>? = null
 
         /**
          * Checks ItemStack emptiness (`null` indicates that ItemStack is empty)
-         * @param is Checked item stack
+         * @param `is` Checked item stack
          * @return `true` if ItemStack is empty
          */
-        fun isItemEmpty(`is`: ItemStack?): Boolean {
-            return `is` == null || `is`.isEmpty
-        }
+        @JvmStatic
+        fun isItemEmpty(stk: ItemStack?) = stk == null || stk.isEmpty
 
-        fun formatMB(n: Int, c: Int): String {
-            return n.toString() + " / " + c + " mB"
-        }
+        @JvmStatic
+        fun formatMB(n: Int, c: Int) = n.toString() + " / " + c + " mB"
 
-        fun giveItemToPlayer(`is`: ItemStack, p: EntityPlayer) {
-            val f = p.inventory.addItemStackToInventory(`is`)
+        @JvmStatic
+        fun giveItemToPlayer(stk: ItemStack, p: EntityPlayer) {
+            val f = p.inventory.addItemStackToInventory(stk)
             val ei: EntityItem?
             if (f) {
                 val r = p.rng
                 p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, ((r.nextFloat() - r.nextFloat()) * 0.7f + 1.0f) * 2.0f)
                 p.inventoryContainer.detectAndSendChanges()
             }
-            if (!f || !`is`.isEmpty) {
-                ei = p.dropItem(`is`, false)
+            if (!f || !stk.isEmpty) {
+                ei = p.dropItem(stk, false)
                 if (ei != null) {
                     ei.setNoPickupDelay()
                     ei.owner = p.name
@@ -95,6 +97,6 @@ class FL {
         var L: Logger? = null
 
         @SidedProxy(modId = R.FL_ID, serverSide = R.FL_PROXY_PKG, clientSide = R.FL_PROXY_PKG + "Client")
-        var PROXY: szewek.fl.proxy.FLProxy? = null
+        var PROXY: szewek.fl.proxy.FLProxy = FLProxyDummy()
     }
 }

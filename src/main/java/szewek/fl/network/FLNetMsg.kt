@@ -47,14 +47,13 @@ abstract class FLNetMsg {
      * @param p Player
      */
     @SideOnly(Side.CLIENT)
-    fun climsg(p: EntityPlayer) {
-    }
+    fun climsg(p: EntityPlayer) {}
 
     internal class Decode(private val msg: FLNetMsg, private val player: EntityPlayer, private val side: Side) : Runnable {
 
         override fun run() {
             try {
-                FL.PROXY!!.netUtil.decode(msg, player, side)
+                FL.PROXY.netUtil.decode(msg, player, side)
             } catch (x: Exception) {
                 msg.exception(x)
             }

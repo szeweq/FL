@@ -157,11 +157,6 @@ object FLGui {
         }
     }
 
-    private fun setGLColor(c: Int) {
-        val a = (c shr 24 and 255) / 255f
-        val r = (c shr 16 and 255) / 255f
-        val g = (c shr 8 and 255) / 255f
-        val b = (c and 255) / 255f
-        GlStateManager.color(r, g, b, a)
-    }
+    private fun setGLColor(c: Int) =
+            GlStateManager.color((c shr 16 and 255) / 255f, (c shr 8 and 255) / 255f, (c and 255) / 255f, (c shr 24 and 255) / 255f)
 }
