@@ -30,7 +30,11 @@ class FLNetUtilClient private constructor() : FLNetUtil {
     }
 
     override fun check(h: INetHandler): Side? {
-        return if (h is NetHandlerPlayClient) Side.CLIENT else if (h is NetHandlerPlayServer) Side.SERVER else null
+        return when (h) {
+            is NetHandlerPlayClient -> Side.CLIENT
+            is NetHandlerPlayServer -> Side.SERVER
+            else -> null
+        }
     }
 
     companion object {
