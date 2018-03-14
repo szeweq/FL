@@ -17,7 +17,7 @@ object FLU {
         return false
     }
 
-    fun getEnergySafely(icp: ICapabilityProvider, f: EnumFacing): IEnergy? {
+    fun getEnergySafely(icp: ICapabilityProvider, f: EnumFacing?): IEnergy? {
         try {
             return if (icp is IEnergy) {
                 icp

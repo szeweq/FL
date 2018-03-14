@@ -20,7 +20,7 @@ abstract class FLNetMsg {
      * @throws IOException Usually comes from methods used with [PacketBuffer]
      */
     @Throws(IOException::class)
-    internal abstract fun decode(pb: PacketBuffer)
+    abstract fun decode(pb: PacketBuffer)
 
     /**
      * Encodes a message into a buffer
@@ -28,26 +28,26 @@ abstract class FLNetMsg {
      * @throws IOException Usually comes from methods used with [PacketBuffer]
      */
     @Throws(IOException::class)
-    internal abstract fun encode(pb: PacketBuffer)
+    abstract fun encode(pb: PacketBuffer)
 
     /**
      * Handles an exception
      * @param x Exception thrown while using this message
      */
-    internal fun exception(x: Exception) {}
+    protected open fun exception(x: Exception) {}
 
     /**
      * Reads message data for use in server
      * @param p Player
      */
-    fun srvmsg(p: EntityPlayer) {}
+	protected open fun srvmsg(p: EntityPlayer) {}
 
     /**
      * Reads message data for use in client
      * @param p Player
      */
     @SideOnly(Side.CLIENT)
-    fun climsg(p: EntityPlayer) {}
+	protected open fun climsg(p: EntityPlayer) {}
 
     internal class Decode(private val msg: FLNetMsg, private val player: EntityPlayer, private val side: Side) : Runnable {
 
