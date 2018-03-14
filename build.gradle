@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.9"
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.30"
     }
 }
 apply plugin: "kotlin"
@@ -21,6 +21,9 @@ archivesBaseName = "fl"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+compileKotlin {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
@@ -71,7 +74,7 @@ curseforge {
     apiKey = cfkey ? cfkey : ""
     project {
         id = "262385"
-        releaseType = "release"
+        releaseType = "beta"
         changelogType = "markdown"
         changelog = file("LATEST.md")
         addArtifact sourcesJar
