@@ -5,6 +5,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.INBTSerializable
 
+@Suppress("UNCHECKED_CAST")
 object CapStorage {
     private val EMPTY = object : Capability.IStorage<Any> {
         override fun writeNBT(cap: Capability<Any>, t: Any, side: EnumFacing): NBTBase? {
