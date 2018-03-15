@@ -6,7 +6,7 @@ import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.registries.IForgeRegistry
-import szewek.fl.FL
+import szewek.fl.FLX
 import szewek.fl.annotations.NamedResource
 import java.util.*
 
@@ -15,7 +15,7 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
     private val bset = HashSet<Block>()
 
     init {
-        FL.PROXY!!.addPreRegister(this)
+        FLX.PROXY.addPreRegister(this)
     }
 
     fun item(name: String, i: Item): PreRegister {

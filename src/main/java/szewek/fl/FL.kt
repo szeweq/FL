@@ -10,7 +10,6 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent
@@ -47,7 +46,7 @@ class FL {
 
 	@Mod.EventHandler
 	fun init(e: FMLInitializationEvent) {
-		PROXY!!.init()
+		FLX.PROXY!!.init()
 	}
 
 	@Mod.EventHandler
@@ -95,9 +94,5 @@ class FL {
 		// All stuff below is not a part of FL API
 		private val FLC = FLCloud.getAPI("fl", R.FL_KEY)
 		var L: Logger? = null
-
-		@JvmField
-		@SidedProxy(modId = R.FL_ID, serverSide = R.FL_PROXY_PKG, clientSide = R.FL_PROXY_PKG + "Client")
-		var PROXY: szewek.fl.proxy.FLProxy? = null
 	}
 }

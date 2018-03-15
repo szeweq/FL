@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket
 import net.minecraftforge.fml.relauncher.Side
 import szewek.fl.FL
+import szewek.fl.FLX
 
 @ChannelHandler.Sharable
 class FLNetChannel(private val chname: String, private val ids: List<Class<out FLNetMsg>>) : SimpleChannelInboundHandler<FMLProxyPacket>() {
@@ -28,8 +29,8 @@ class FLNetChannel(private val chname: String, private val ids: List<Class<out F
 	@Throws(Exception::class)
 	override fun channelRead0(ctx: ChannelHandlerContext, msg: FMLProxyPacket) {
 		try {
-			val s = FL.PROXY!!.netUtil.check(msg.handler())
-			val tup = FL.PROXY!!.netUtil.preprocess(msg, s!!)
+			val s = FLX.PROXY!!.netUtil.check(msg.handler())
+			val tup = FLX.PROXY!!.netUtil.preprocess(msg, s!!)
 			if (tup == null) {
 				FL.L!!.warn("No Tuple")
 				return
