@@ -19,7 +19,7 @@ public abstract class FLNetMsg {
 	 * @param pb Buffer
 	 * @throws IOException Usually comes from methods used with [PacketBuffer]
 	 */
-	abstract void decode(PacketBuffer pb) throws IOException;
+	public abstract void decode(PacketBuffer pb) throws IOException;
 
 	/**
 	 * Encodes a message into a buffer
@@ -27,14 +27,14 @@ public abstract class FLNetMsg {
 	 * @param pb Buffer
 	 * @throws IOException Usually comes from methods used with [PacketBuffer]
 	 */
-	abstract void encode(PacketBuffer pb) throws IOException;
+	public abstract void encode(PacketBuffer pb) throws IOException;
 
 	/**
 	 * Handles an exception
 	 *
 	 * @param x Exception thrown while using this message
 	 */
-	protected void exception(Exception x) {
+	public void exception(Exception x) {
 	}
 
 	/**
@@ -42,7 +42,7 @@ public abstract class FLNetMsg {
 	 *
 	 * @param p Player
 	 */
-	protected void srvmsg(EntityPlayer p) {
+	public void srvmsg(EntityPlayer p) {
 	}
 
 	/**
@@ -51,7 +51,7 @@ public abstract class FLNetMsg {
 	 * @param p Player
 	 */
 	@SideOnly(Side.CLIENT)
-	protected void climsg(EntityPlayer p) {
+	public void climsg(EntityPlayer p) {
 	}
 
 	public static final class Decode implements Runnable {
