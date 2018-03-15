@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger
 import szewek.fl.energy.Battery
 import szewek.fl.energy.EnergyNBTStorage
 import szewek.fl.energy.IEnergy
+import szewek.fl.kotlin.plusAssign
 import szewek.fl.network.FLCloud
 import szewek.fl.proxy.FLProxyDummy
 import szewek.fl.taste.ILikesTaste
@@ -34,11 +35,11 @@ class FL {
 		L = e.modLog
 		Thread(FLCloud.Companion::checkVersions, "FL Updates check").start()
 		val cm = CapabilityManager.INSTANCE
-		cm.register<IEnergy>(IEnergy::class.java, EnergyNBTStorage(), { Battery() })
-		cm.register<ILikesTaste>(ILikesTaste::class.java, CapStorage.getCustom<ILikesTaste>(), { Taste.Storage() })
+		cm.register<IEnergy>(IEnergy::class.java, EnergyNBTStorage(), ::Battery)
+		cm.register<ILikesTaste>(ILikesTaste::class.java, CapStorage.getCustom<ILikesTaste>(), Taste::Storage)
 		if (R.FL_DEBUG) {
 			val ec = EventCounter()
-			MinecraftForge.EVENT_BUS.register(ec)
+			MinecraftForge.EVENT_BUS += ec
 			val th = Thread(ec, "FL Event Counter")
 			th.isDaemon = true
 			th.start()
