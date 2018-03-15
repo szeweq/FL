@@ -34,20 +34,20 @@ abstract class FLNetMsg {
      * Handles an exception
      * @param x Exception thrown while using this message
      */
-    protected open fun exception(x: Exception) {}
+    open fun exception(x: Exception) {}
 
     /**
      * Reads message data for use in server
      * @param p Player
      */
-	protected open fun srvmsg(p: EntityPlayer) {}
+	open fun srvmsg(p: EntityPlayer) {}
 
     /**
      * Reads message data for use in client
      * @param p Player
      */
     @SideOnly(Side.CLIENT)
-	protected open fun climsg(p: EntityPlayer) {}
+    open fun climsg(p: EntityPlayer) {}
 
     internal class Decode(private val msg: FLNetMsg, private val player: EntityPlayer, private val side: Side) : Runnable {
 
