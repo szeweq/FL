@@ -15,7 +15,7 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
     private val bset = HashSet<Block>()
 
     init {
-        FL.PROXY.addPreRegister(this)
+        FL.PROXY!!.addPreRegister(this)
     }
 
     fun item(name: String, i: Item): PreRegister {

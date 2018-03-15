@@ -20,7 +20,6 @@ import szewek.fl.energy.EnergyNBTStorage
 import szewek.fl.energy.IEnergy
 import szewek.fl.kotlin.plusAssign
 import szewek.fl.network.FLCloud
-import szewek.fl.proxy.FLProxyDummy
 import szewek.fl.taste.ILikesTaste
 import szewek.fl.taste.Taste
 import szewek.fl.test.EventCounter
@@ -48,7 +47,7 @@ class FL {
 
 	@Mod.EventHandler
 	fun init(e: FMLInitializationEvent) {
-		PROXY.init()
+		PROXY!!.init()
 	}
 
 	@Mod.EventHandler
@@ -99,6 +98,6 @@ class FL {
 
 		@JvmField
 		@SidedProxy(modId = R.FL_ID, serverSide = R.FL_PROXY_PKG, clientSide = R.FL_PROXY_PKG + "Client")
-		var PROXY: szewek.fl.proxy.FLProxy = FLProxyDummy()
+		var PROXY: szewek.fl.proxy.FLProxy? = null
 	}
 }

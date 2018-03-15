@@ -28,8 +28,8 @@ class FLNetChannel(private val chname: String, private val ids: List<Class<out F
 	@Throws(Exception::class)
 	override fun channelRead0(ctx: ChannelHandlerContext, msg: FMLProxyPacket) {
 		try {
-			val s = FL.PROXY.netUtil.check(msg.handler())
-			val tup = FL.PROXY.netUtil.preprocess(msg, s!!)
+			val s = FL.PROXY!!.netUtil.check(msg.handler())
+			val tup = FL.PROXY!!.netUtil.preprocess(msg, s!!)
 			if (tup == null) {
 				FL.L!!.warn("No Tuple")
 				return
