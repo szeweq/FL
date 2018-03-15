@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side
  * Internal utility functions that depend on side (CLIENT or SERVER)
  */
 interface FLNetUtil {
-    fun preprocess(p: FMLProxyPacket, s: Side): Tuple<IThreadListener, EntityPlayer>?
-    fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side)
-    fun check(h: INetHandler): Side?
+	fun preprocess(p: FMLProxyPacket, s: Side): Tuple<IThreadListener, EntityPlayer>?
+	fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side)
+	fun check(h: INetHandler): Side?
 }

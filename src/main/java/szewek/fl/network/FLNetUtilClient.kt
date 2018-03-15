@@ -14,26 +14,26 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @SideOnly(Side.CLIENT)
 class FLNetUtilClient private constructor() : FLNetUtil {
 
-    override fun preprocess(p: FMLProxyPacket, s: Side): Tuple<IThreadListener, EntityPlayer>? {
-        if (s == Side.CLIENT) {
-            val mc = Minecraft.getMinecraft()
-            return Tuple(mc, mc.player)
-        }
-        return FLNetUtilServer.THIS.preprocess(p, s)
-    }
+	override fun preprocess(p: FMLProxyPacket, s: Side): Tuple<IThreadListener, EntityPlayer>? {
+		if (s == Side.CLIENT) {
+			val mc = Minecraft.getMinecraft()
+			return Tuple(mc, mc.player)
+		}
+		return FLNetUtilServer.THIS.preprocess(p, s)
+	}
 
-    override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) = if (s == Side.CLIENT)
+	override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) = if (s == Side.CLIENT)
 		msg.climsg(p)
 	else
 		msg.srvmsg(p)
 
-    override fun check(h: INetHandler) = when (h) {
+	override fun check(h: INetHandler) = when (h) {
 		is NetHandlerPlayClient -> Side.CLIENT
 		is NetHandlerPlayServer -> Side.SERVER
 		else -> null
 	}
 
-    companion object {
-        val THIS = FLNetUtilClient()
-    }
+	companion object {
+		val THIS = FLNetUtilClient()
+	}
 }

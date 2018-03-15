@@ -11,8 +11,8 @@ import szewek.fl.annotations.NamedResource
 import java.util.*
 
 class PreRegister(private val domain: String, private val tab: CreativeTabs) {
-    private val items = HashSet<Item>()
-    private val blocks = HashSet<Block>()
+    private val iset = HashSet<Item>()
+    private val bset = HashSet<Block>()
 
     init {
         FL.PROXY.addPreRegister(this)
@@ -21,14 +21,14 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
     fun item(name: String, i: Item): PreRegister {
         val fn = "$domain:$name"
         i.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
-        items.add(i)
+        iset.add(i)
         return this
     }
 
     fun block(name: String, b: Block): PreRegister {
         val fn = "$domain:$name"
         b.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
-        blocks.add(b)
+        bset.add(b)
         return this
     }
 
@@ -40,22 +40,16 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
     }
 
     fun registerItems(ifr: IForgeRegistry<Item>) {
-        for (i in items) {
-            ifr.register(i)
-        }
+        for (i in iset) ifr.register(i)
     }
 
     fun registerBlocks(ifr: IForgeRegistry<Block>) {
-        for (b in blocks) {
-            ifr.register(b)
-        }
+        for (b in bset) ifr.register(b)
     }
 
-    fun getItems(): Set<Item> {
-        return Collections.unmodifiableSet(items)
-    }
+    val items: Set<Item>
+        get() = Collections.unmodifiableSet(iset)
 
-    fun getBlocks(): Set<Block> {
-        return Collections.unmodifiableSet(blocks)
-    }
+    val blocks: Set<Block>
+        get() = Collections.unmodifiableSet(bset)
 }

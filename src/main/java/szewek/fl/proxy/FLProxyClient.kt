@@ -24,7 +24,7 @@ class FLProxyClient : FLProxy() {
     override fun init() {
         val imm = Minecraft.getMinecraft().renderItem.itemModelMesher
         for (pr in prl) {
-            val iset = pr.getItems()
+            val iset = pr.items
             for (i in iset) {
                 val mrl = ModelResourceLocation(i.registryName!!, "inventory")
                 imm.register(i, 0, mrl)
