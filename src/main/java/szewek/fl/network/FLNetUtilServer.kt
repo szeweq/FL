@@ -21,13 +21,9 @@ class FLNetUtilServer private constructor() : FLNetUtil {
         return null
     }
 
-    override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) {
-        msg.srvmsg(p)
-    }
+    override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) = msg.srvmsg(p)
 
-    override fun check(h: INetHandler): Side? {
-        return if (h is NetHandlerPlayServer) Side.SERVER else null
-    }
+    override fun check(h: INetHandler) = if (h is NetHandlerPlayServer) Side.SERVER else null
 
     companion object {
         val THIS = FLNetUtilServer()

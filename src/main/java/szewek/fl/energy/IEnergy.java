@@ -1,5 +1,7 @@
 package szewek.fl.energy;
 
+import javax.annotation.Nonnull;
+
 /**
  * Energy Transfer Interface
  */
@@ -83,8 +85,8 @@ public interface IEnergy {
 	 * @param amount Maximum energy amount to transfer
 	 * @return Energy transferred
 	 */
-	default long to(IEnergy ie, final long amount) {
-		if (amount > 0 && ie != null && ie.canInputEnergy() && canOutputEnergy()) {
+	default long to(@Nonnull IEnergy ie, final long amount) {
+		if (amount > 0 && canOutputEnergy() && ie.canInputEnergy()) {
 			final long r = ie.inputEnergy(outputEnergy(amount, true), true);
 			if (r > 0)
 				return ie.inputEnergy(outputEnergy(r, false), false);

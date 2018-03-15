@@ -22,20 +22,16 @@ class FLNetUtilClient private constructor() : FLNetUtil {
         return FLNetUtilServer.THIS.preprocess(p, s)
     }
 
-    override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) {
-        if (s == Side.CLIENT)
-            msg.climsg(p)
-        else
-            msg.srvmsg(p)
-    }
+    override fun decode(msg: FLNetMsg, p: EntityPlayer, s: Side) = if (s == Side.CLIENT)
+		msg.climsg(p)
+	else
+		msg.srvmsg(p)
 
-    override fun check(h: INetHandler): Side? {
-        return when (h) {
-            is NetHandlerPlayClient -> Side.CLIENT
-            is NetHandlerPlayServer -> Side.SERVER
-            else -> null
-        }
-    }
+    override fun check(h: INetHandler) = when (h) {
+		is NetHandlerPlayClient -> Side.CLIENT
+		is NetHandlerPlayServer -> Side.SERVER
+		else -> null
+	}
 
     companion object {
         val THIS = FLNetUtilClient()
