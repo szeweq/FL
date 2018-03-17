@@ -6,6 +6,8 @@ inline operator fun NBTTagCompound.get(s: String): NBTBase = getTag(s)
 inline operator fun NBTTagCompound.set(s: String, tag: NBTBase) = setTag(s, tag)
 inline operator fun NBTTagCompound.contains(s: String) = hasKey(s)
 
+inline operator fun NBTTagList.plusAssign(tag: NBTBase) = appendTag(tag)
+
 inline val NBTBase.asBoolean
 	get() = if (this is NBTPrimitive) this.byte != (0).toByte() else false
 inline val NBTBase.asByte

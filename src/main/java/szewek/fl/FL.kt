@@ -67,12 +67,14 @@ class FL {
 		 * @param `is` Checked item stack
 		 * @return `true` if ItemStack is empty
 		 */
+		@Deprecated("Not used in current version", ReplaceWith("stk == null || stk.isEmpty"))
 		@JvmStatic
 		fun isItemEmpty(stk: ItemStack?) = stk == null || stk.isEmpty
 
 		@JvmStatic
 		fun formatMB(n: Int, c: Int) = n.toString() + " / " + c + " mB"
 
+		@Deprecated("Already available in Forge's ItemHandlerHelper")
 		@JvmStatic
 		fun giveItemToPlayer(stk: ItemStack, p: EntityPlayer) {
 			val f = p.inventory.addItemStackToInventory(stk)
