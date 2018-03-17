@@ -23,17 +23,19 @@ sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
-compileKotlin {
-    sourceCompatibility = targetCompatibility = "1.8"
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
 }
 
 task sourcesJar(type: Jar, dependsOn: "sourceJar") {
     from (sourceSets.main.allSource) {
-		include "szewek/fl/R.kt"
+		include "szewek/fl/R.java"
 		expand 'version': project.version
 	}
 	from (sourceSets.main.allSource) {
-		exclude "szewek/fl/R.kt"
+		exclude "szewek/fl/R.java"
 	}
     from sourceSets.api.allSource
 	from sourceSets.main.allSource
