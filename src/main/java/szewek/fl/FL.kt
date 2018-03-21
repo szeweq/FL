@@ -64,7 +64,7 @@ class FL {
 
 		/**
 		 * Checks ItemStack emptiness (`null` indicates that ItemStack is empty)
-		 * @param `is` Checked item stack
+		 * @param stk Checked item stack
 		 * @return `true` if ItemStack is empty
 		 */
 		@Deprecated("Not used in current version", ReplaceWith("stk == null || stk.isEmpty"))
