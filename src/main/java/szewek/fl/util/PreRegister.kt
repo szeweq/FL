@@ -20,15 +20,23 @@ class PreRegister(private val domain: String, private val tab: CreativeTabs) {
 
     fun item(name: String, i: Item): PreRegister {
         val fn = "$domain:$name"
-        i.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
-        iset.add(i)
+        i.apply {
+            unlocalizedName = fn
+            creativeTab = tab
+            setRegistryName(fn)
+        }
+        iset += i
         return this
     }
 
     fun block(name: String, b: Block): PreRegister {
         val fn = "$domain:$name"
-        b.setUnlocalizedName(fn).setCreativeTab(tab).setRegistryName(fn)
-        bset.add(b)
+        b.apply {
+            unlocalizedName = fn
+            setCreativeTab(tab)
+            setRegistryName(fn)
+        }
+        bset += b
         return this
     }
 

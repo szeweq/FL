@@ -18,7 +18,6 @@ import szewek.fl.energy.Battery
 import szewek.fl.energy.EnergyNBTStorage
 import szewek.fl.energy.IEnergy
 import szewek.fl.kotlin.plusAssign
-import szewek.fl.network.FLCloud
 import szewek.fl.taste.ILikesTaste
 import szewek.fl.taste.Taste
 import szewek.fl.test.EventCounter
@@ -31,7 +30,6 @@ class FL {
 	@Mod.EventHandler
 	fun preInit(e: FMLPreInitializationEvent) {
 		L = e.modLog
-		Thread(FLCloud.Companion::checkVersions, "FL Updates check").start()
 		val cm = CapabilityManager.INSTANCE
 		cm.register<IEnergy>(IEnergy::class.java, EnergyNBTStorage(), ::Battery)
 		cm.register<ILikesTaste>(ILikesTaste::class.java, CapStorage.getCustom<ILikesTaste>(), Taste::Storage)
@@ -62,17 +60,8 @@ class FL {
 		@CapabilityInject(ILikesTaste::class)
 		var TASTE_CAP: Capability<ILikesTaste>? = null
 
-		/**
-		 * Checks ItemStack emptiness (`null` indicates that ItemStack is empty)
-		 * @param stk Checked item stack
-		 * @return `true` if ItemStack is empty
-		 */
-		@Deprecated("Not used in current version", ReplaceWith("stk == null || stk.isEmpty"))
 		@JvmStatic
-		fun isItemEmpty(stk: ItemStack?) = stk == null || stk.isEmpty
-
-		@JvmStatic
-		fun formatMB(n: Int, c: Int) = n.toString() + " / " + c + " mB"
+		fun formatMB(n: Int, c: Int) = "$n / $c mB"
 
 		@Deprecated("Already available in Forge's ItemHandlerHelper")
 		@JvmStatic
@@ -93,8 +82,6 @@ class FL {
 			}
 		}
 
-		// All stuff below is not a part of FL API
-		private val FLC = FLCloud.getAPI("fl", R.FL_KEY)
 		var L: Logger? = null
 	}
 }

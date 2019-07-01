@@ -11,7 +11,7 @@ object FLU {
         val ldr = Loader.instance()
         val mm = ldr.indexedModList
         for (n in names) {
-            if (mm.containsKey(n) && ldr.getModState(mm[n]) != LoaderState.ModState.DISABLED)
+            if (n in mm && ldr.getModState(mm[n]) != LoaderState.ModState.DISABLED)
                 return true
         }
         return false
@@ -19,12 +19,9 @@ object FLU {
 
     fun getEnergySafely(icp: ICapabilityProvider, f: EnumFacing?): IEnergy? {
         try {
-            return if (icp is IEnergy) {
-                icp
-            } else icp.getCapability(FL.ENERGY_CAP!!, f)
+            return if (icp is IEnergy) icp else icp.getCapability(FL.ENERGY_CAP!!, f)
         } catch (ignored: Exception) {
         }
-
         return null
     }
 }
