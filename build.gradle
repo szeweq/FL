@@ -76,7 +76,7 @@ curseforge {
     apiKey = cfkey ? cfkey : ""
     project {
         id = "262385"
-        releaseType = "beta"
+        releaseType = "release"
         changelogType = "markdown"
         changelog = file("LATEST.md")
         relations {
